@@ -27,4 +27,4 @@
 	branch = master
 [submodule "ros"]
 	path = ros
-	url = https://github.com/dusty-nv/ros_deep_learning
+	url = https://github.com/reindeererobotics/ros_deep_learning
