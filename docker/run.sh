@@ -201,7 +201,7 @@ if [ $ARCH = "aarch64" ]; then
 	# /proc or /sys files aren't mountable into docker
 	cat /proc/device-tree/model > /tmp/nv_jetson_model
 
-	sudo docker run --runtime nvidia -it --rm \
+	sudo docker run --runtime nvidia -it -d --restart unless-stopped \
 		--network host \
 		-v /tmp/argus_socket:/tmp/argus_socket \
 		-v /etc/enctune.conf:/etc/enctune.conf \
@@ -209,6 +209,8 @@ if [ $ARCH = "aarch64" ]; then
 		-v /tmp/nv_jetson_model:/tmp/nv_jetson_model \
 		-v /var/run/dbus:/var/run/dbus \
 		-v /var/run/avahi-daemon/socket:/var/run/avahi-daemon/socket \
+        -v /etc/localtime:/etc/localtime:ro \
+        -v /etc/timezone:/etc/timezone:ro \
 		$DISPLAY_DEVICE $V4L2_DEVICES \
 		$DATA_VOLUME $USER_VOLUME $DEV_VOLUME \
 		$CONTAINER_IMAGE $USER_COMMAND
